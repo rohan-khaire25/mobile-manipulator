@@ -1,0 +1,9 @@
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="manipulator_complete" >
+
+<xacro:include filename="$(find mobile_manipulator_robot)/urdf/robot.urdf.xacro" />
+<xacro:include filename="$(find mobile_manipulator_robot)/urdf/arm.urdf.xacro" />
+
+<xacro:arm_joint prefix="arm_base" parent="base_link" child="arm_base" originxyz="0.20 0.0 0.40" originrpy="0 0 0"/>
+<xacro:arm_transmission prefix="arm_base"/>
+
+</robot>

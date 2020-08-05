@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<robot name="color_properties" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <material name="green">
+        <color rgba="0 1 0 1"/>
+    </material>
+
+    <material name="black">
+        <color rgba="0.4 0.4 0.4 1"/>
+    </material>
+
+    <material name="yellow">
+        <color rgba="247 202 24 1"/>
+    </material>    
+
+    <gazebo reference="base_link">
+        <material>Gazebo/Yellow</material>
+    </gazebo>   
+
+    <gazebo reference="top_base">
+        <material>Gazebo/Black</material>
+    </gazebo> 
+
+    <gazebo reference="front_left_wheel">
+        <material>Gazebo/Black</material>
+    </gazebo> 
+
+    <gazebo reference="front_right_wheel">
+        <material>Gazebo/Black</material>
+    </gazebo> 
+
+    <gazebo reference="rear_left_wheel">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <gazebo reference="rear_right_wheel">
+        <material>Gazebo/Black</material>
+    </gazebo>  
+</robot>
+
+
+
