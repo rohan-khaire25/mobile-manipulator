@@ -1,0 +1,24 @@
+<launch>
+
+     <include file="$(find gazebo_ros)/launch/empty_world.launch">-->
+        <arg name="world_name" value="$(find mobile_manipulator_robot)/world/boxes.world"/>-->
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="recording" value="false"/>
+        <arg name="debug" value="false"/>
+    </include>    
+
+    <file incude="$(find mobile_manipulator_robot)/launch/load_manipulator.launch"/>
+
+    <file incude="$(find mobile_manipulator_robot)/launch/base_n_arm.launch"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
+    
+
+    
+
+
+
+
+
+</launch>

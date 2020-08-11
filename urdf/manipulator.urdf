@@ -4,6 +4,10 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <robot name="manipulator_complete">
+
+  <material name="red">
+        <color rgba="1 0 0 1"/>
+  </material>
   <material name="green">
     <color rgba="0 1 0 1"/>
   </material>
@@ -60,11 +64,11 @@
     <plugin filename="libgazebo_ros_diff_drive.so" name="diff_drive_controller">
       <legacyMode>false</legacyMode>
       <alwaysOn>true</alwaysOn>
-      <updateRate>1000.0</updateRate>
+      <updateRate>100000.0</updateRate>
       <leftJoint>front_left_wheel_joint, rear_left_wheel_joint</leftJoint>
       <rightJoint>front_right_wheel_joint, rear_right_wheel_joint</rightJoint>
       <wheelSeparation>0.72</wheelSeparation>
-      <wheelDiameter>0.4</wheelDiameter>
+      <wheelDiameter>0.316</wheelDiameter>
       <wheelTorque>10</wheelTorque>
       <publishTf>1</publishTf>
       <odometryFrame>map</odometryFrame>
@@ -313,7 +317,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robot_description/meshes/arm_base.stl"/>
+        <mesh filename="package://mobile_manipulator_robot/meshes/arm_base.stl"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -322,7 +326,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robot_description/meshes/arm_base.stl"/>
+        <mesh filename="package://mobile_manipulator_robot/meshes/arm_base.stl"/>
       </geometry>
     </collision>
   </link>
@@ -335,7 +339,7 @@
     <visual>
       <origin rpy="0 -1.5708 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robot_description/meshes/bicep.stl"/>
+        <mesh filename="package://mobile_manipulator_robot/meshes/bicep.stl"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -344,7 +348,7 @@
     <collision>
       <origin rpy="0 -1.5708 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://robot_description/meshes/bicep.stl"/>
+        <mesh filename="package://mobile_manipulator_robot/meshes/bicep.stl"/>
       </geometry>
     </collision>
   </link>
@@ -357,7 +361,7 @@
     <visual>
       <origin rpy="3.14 0 1.5708" xyz="0 0 0.13522"/>
       <geometry>
-        <mesh filename="package://robot_description/meshes/wrist.stl"/>
+        <mesh filename="package://mobile_manipulator_robot/meshes/wrist.stl"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -366,7 +370,7 @@
     <collision>
       <origin rpy="3.14 0 1.5708" xyz="0 0 0.13522"/>
       <geometry>
-        <mesh filename="package://robot_description/meshes/wrist.stl"/>
+        <mesh filename="package://mobile_manipulator_robot/meshes/wrist.stl"/>
       </geometry>
     </collision>
   </link>
@@ -379,7 +383,7 @@
     <visual>
       <origin rpy="0 -1.5708 0" xyz="0.0 0.05163 0.20994"/>
       <geometry>
-        <mesh filename="package://robot_description/meshes/elbow.stl"/>
+        <mesh filename="package://mobile_manipulator_robot/meshes/elbow.stl"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -388,7 +392,7 @@
     <collision>
       <origin rpy="0 -1.5708 0" xyz="0.0 0.05163 0.20994"/>
       <geometry>
-        <mesh filename="package://robot_description/meshes/elbow.stl"/>
+        <mesh filename="package://mobile_manipulator_robot/meshes/elbow.stl"/>
       </geometry>
     </collision>
   </link>
@@ -401,7 +405,7 @@
     <visual>
       <origin rpy="3.14 0 1.5708" xyz="0 0 0.13522"/>
       <geometry>
-        <mesh filename="package://robot_description/meshes/wrist.stl"/>
+        <mesh filename="package://mobile_manipulator_robot/meshes/wrist.stl"/>
       </geometry>
       <material name="">
         <color rgba="0.79216 0.81961 0.93333 1"/>
@@ -410,7 +414,7 @@
     <collision>
       <origin rpy="3.14 0 1.5708" xyz="0 0 0.13522"/>
       <geometry>
-        <mesh filename="package://robot_description/meshes/wrist.stl"/>
+        <mesh filename="package://mobile_manipulator_robot/meshes/wrist.stl"/>
       </geometry>
     </collision>
   </link>
@@ -497,5 +501,123 @@
     </joint>
   </transmission>
   <!--######################################################################-->
+
+  <!--LASER SCANNER -->
+  <link name="laser_scanner">
+    <visual>
+      <origin xyz="0 0 0.0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.02 0.02"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.02 0.02"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.002"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0"
+              iyy="1e-6" iyz="0"
+              izz="1e-6"/>
+    </inertial>
+  </link>
+
+  <joint name="laser_scan_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="laser_scanner"/>
+    <origin xyz="0.32 0 0.28" rpy="0 0 0"/>
+  </joint>
+
+  <gazebo reference="laser_scanner">
+    <material>Gazebo/Red</material>
+      <sensor type="ray" name="laser">
+        <pose>0 0 0.005 0 0 0</pose>
+        <update_rate>100</update_rate>
+        <visualize>false</visualize>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>360</samples>
+                <resolution>1</resolution>
+                <min_angle>-1.578</min_angle>
+                <max_angle>1.578</max_angle>
+             </horizontal>
+            </scan>
+            <range>
+              <min>0.1</min>
+              <max>30</max>
+              <resolution>0.1</resolution>
+            </range>
+          </ray>
+        <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+          <gaussianNoise>0.005</gaussianNoise>
+          <topicName>/scan</topicName>
+          <frameName>laser_scanner</frameName>
+        </plugin>
+      </sensor>
+  </gazebo> 
+
+<!-- IMU SENSOR -->
+
+  <link name="imu_link"/>
+
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="-0.032 0 0.068" rpy="0 0 0"/>
+  </joint>
+
+  <gazebo reference="imu_link">
+    <sensor type="imu" name="imu">
+      <always_on>true</always_on>
+      <visualize>false</visualize>
+    </sensor>
+    <material>Gazebo/FlatBlack</material>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <bodyName>imu_link</bodyName>
+      <frameName>imu_link</frameName>
+      <topicName>imu</topicName>
+      <serviceName>imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>100</updateRate>
+      <imu>
+        <noise>
+          <type>gaussian</type>
+          <rate>
+            <mean>0.0</mean>
+            <stddev>2e-4</stddev>
+            <bias_mean>0.0000075</bias_mean>
+            <bias_stddev>0.0000008</bias_stddev>
+          </rate>
+          <accel>
+            <mean>0.0</mean>
+            <stddev>1.7e-2</stddev>
+            <bias_mean>0.1</bias_mean>
+            <bias_stddev>0.001</bias_stddev>
+          </accel>
+        </noise>
+      </imu>
+    </plugin>
+  </gazebo>
+
+
+
+
+
+
+
+
+
+
+
+
 </robot>
 

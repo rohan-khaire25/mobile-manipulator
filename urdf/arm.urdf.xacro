@@ -199,12 +199,14 @@
   </link>
 <!--######################################################################-->
 
+
 <xacro:arm_joint prefix="shoulder" parent="arm_base" child="bicep" originxyz="-0.05166 0.0 0.20271" originrpy="0 0 1.5708"/>
 <xacro:arm_joint prefix="bottom_wrist" parent="bicep" child="bottom_wrist" originxyz="0.0 -0.05194 0.269" originrpy="0 0 0"/>
 <xacro:arm_joint prefix="elbow" parent="bottom_wrist" child="elbow" originxyz="0.0 0 0.13522" originrpy="0 0 0"/>
 <xacro:arm_joint prefix="top_wrist" parent="elbow" child="top_wrist" originxyz="0.0 0 0.20994" originrpy="0 0 0"/>
 
 <!--######################################################################-->
+
 
 <xacro:arm_transmission prefix="shoulder"/>
 <xacro:arm_transmission prefix="bottom_wrist"/>
